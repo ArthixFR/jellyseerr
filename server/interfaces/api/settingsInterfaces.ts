@@ -21,6 +21,7 @@ export interface SettingsAboutResponse {
 }
 
 export interface PublicSettingsResponse {
+  jellyfinCustomName?: string;
   jellyfinHost?: string;
   jellyfinExternalHost?: string;
   jellyfinServerName?: string;

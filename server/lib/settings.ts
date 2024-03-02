@@ -38,6 +38,7 @@ export interface PlexSettings {
 
 export interface JellyfinSettings {
   name: string;
+  customName: string;
   hostname: string;
   externalHostname?: string;
   jellyfinForgotPasswordUrl?: string;
@@ -110,6 +111,7 @@ export interface MainSettings {
   newPlexLogin: boolean;
   region: string;
   originalLanguage: string;
+  tagsToExclude: string;
   trustProxy: boolean;
   mediaServerType: number;
   partialRequestsEnabled: boolean;
@@ -130,6 +132,7 @@ interface FullPublicSettings extends PublicSettings {
   region: string;
   originalLanguage: string;
   mediaServerType: number;
+  jellyfinCustomName?: string;
   jellyfinHost?: string;
   jellyfinExternalHost?: string;
   jellyfinForgotPasswordUrl?: string;
@@ -317,6 +320,7 @@ class Settings {
         newPlexLogin: true,
         region: '',
         originalLanguage: '',
+        tagsToExclude: '',
         trustProxy: false,
         mediaServerType: MediaServerType.NOT_CONFIGURED,
         partialRequestsEnabled: true,
@@ -331,6 +335,7 @@ class Settings {
       },
       jellyfin: {
         name: '',
+        customName: '',
         hostname: '',
         externalHostname: '',
         jellyfinForgotPasswordUrl: '',
@@ -547,6 +552,7 @@ class Settings {
       region: this.data.main.region,
       originalLanguage: this.data.main.originalLanguage,
       mediaServerType: this.main.mediaServerType,
+      jellyfinCustomName: this.jellyfin.customName,
       jellyfinHost: this.jellyfin.hostname,
       jellyfinExternalHost: this.jellyfin.externalHostname,
       partialRequestsEnabled: this.data.main.partialRequestsEnabled,

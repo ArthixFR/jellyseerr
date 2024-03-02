@@ -22,6 +22,7 @@ const messages = defineMessages({
   timeout: 'Timeout',
   save: 'Save Changes',
   saving: 'Saving…',
+  jellyfinCustomName: 'Jellyfin custom server name',
   jellyfinlibraries: '{mediaServerName} Libraries',
   jellyfinlibrariesDescription:
     'The libraries {mediaServerName} scans for titles. Click the button below if no libraries are listed.',
@@ -356,6 +357,7 @@ const SettingsJellyfin: React.FC<SettingsJellyfinProps> = ({
           </div>
           <Formik
             initialValues={{
+              jellyfinServerName: data?.customName || 'Jellyfin',
               jellyfinInternalUrl: data?.hostname || '',
               jellyfinExternalUrl: data?.externalHostname || '',
               jellyfinForgotPasswordUrl: data?.jellyfinForgotPasswordUrl || '',
@@ -364,6 +366,7 @@ const SettingsJellyfin: React.FC<SettingsJellyfinProps> = ({
             onSubmit={async (values) => {
               try {
                 await axios.post('/api/v1/settings/jellyfin', {
+                  customName: values.jellyfinServerName,
                   hostname: values.jellyfinInternalUrl,
                   externalHostname: values.jellyfinExternalUrl,
                   jellyfinForgotPasswordUrl: values.jellyfinForgotPasswordUrl,
@@ -402,6 +405,27 @@ const SettingsJellyfin: React.FC<SettingsJellyfinProps> = ({
             {({ errors, touched, handleSubmit, isSubmitting, isValid }) => {
               return (
                 <form className="section" onSubmit={handleSubmit}>
+                  <div className="form-row">
+                    <label htmlFor="jellyfinServerName" className="text-label">
+                      {intl.formatMessage(messages.jellyfinCustomName)}
+                    </label>
+                    <div className="form-input-area">
+                      <div className="form-input-field">
+                        <Field
+                          type="text"
+                          inputMode="text"
+                          id="jellyfinServerName"
+                          name="jellyfinServerName"
+                        />
+                      </div>
+                      {errors.jellyfinServerName &&
+                        touched.jellyfinServerName && (
+                          <div className="error">
+                            {errors.jellyfinServerName}
+                          </div>
+                        )}
+                    </div>
+                  </div>
                   <div className="form-row">
                     <label htmlFor="jellyfinInternalUrl" className="text-label">
                       {intl.formatMessage(messages.internalUrl)}

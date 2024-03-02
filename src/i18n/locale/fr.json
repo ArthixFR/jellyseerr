@@ -126,6 +126,7 @@
   "components.Layout.Sidebar.requests": "Demandes",
   "components.Layout.Sidebar.settings": "Paramètres",
   "components.Layout.Sidebar.users": "Utilisateurs",
+  "components.Layout.Sidebar.gotojellyfin": "Aller sur {title}",
   "components.Layout.UserDropdown.signout": "Se déconnecter",
   "components.MovieDetails.budget": "Budget",
   "components.MovieDetails.cast": "Casting",
@@ -1235,6 +1236,8 @@
   "components.Selector.searchStudios": "Recherchez un ou plusieurs studios…",
   "components.Settings.SettingsMain.generalsettingsDescription": "Configurer les paramètres généraux et par défaut pour Jellyseerr.",
   "components.Settings.SettingsMain.originallanguage": "Langue à découvrir",
+  "components.Settings.SettingsMain.tagsToExclude": "Tags à exclure dans les découvertes",
+  "components.Settings.SettingsMain.tagsToExcludeTip": "Filtrer le contenu des découvertes en masquant les films possédant un de ces tags",
   "components.Settings.SettingsMain.region": "Région à découvrir",
   "components.Settings.SettingsMain.regionTip": "Filtrer le contenu par disponibilité régionale",
   "components.Settings.SettingsMain.trustProxy": "Activer la prise en charge proxy",
@@ -1251,5 +1254,6 @@
   "components.Settings.SonarrModal.tagRequests": "Tager les demandes",
   "components.Settings.SonarrModal.tagRequestsInfo": "Ajouter automatiquement un tag supplémentaire avec l'ID utilisateur et le nom d'affichage du demandeur",
   "i18n.collection": "Collection",
-  "components.Settings.RadarrModal.tagRequestsInfo": "Ajouter automatiquement un tag supplémentaire avec l'ID utilisateur et le nom d'affichage du demandeur"
+  "components.Settings.RadarrModal.tagRequestsInfo": "Ajouter automatiquement un tag supplémentaire avec l'ID utilisateur et le nom d'affichage du demandeur",
+  "components.Settings.jellyfinCustomName": "Nom personnalisé du serveur Jellyfin"
 }

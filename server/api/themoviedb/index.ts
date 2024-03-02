@@ -1,5 +1,6 @@
 import ExternalAPI from '@server/api/externalapi';
 import cacheManager from '@server/lib/cache';
+import { getSettings } from '@server/lib/settings';
 import { sortBy } from 'lodash';
 import type {
   TmdbCollection,
@@ -480,6 +481,9 @@ class TheMovieDb extends ExternalAPI {
         .toISOString()
         .split('T')[0];
 
+      const settings = getSettings();
+      const excludeTags = settings.main.tagsToExclude;
+
       const data = await this.get<TmdbSearchMovieResponse>('/discover/movie', {
         params: {
           sort_by: sortBy,
@@ -514,6 +518,7 @@ class TheMovieDb extends ExternalAPI {
           'vote_count.lte': voteCountLte,
           watch_region: watchRegion,
           with_watch_providers: watchProviders,
+          without_keywords: excludeTags,
         },
       });
 
@@ -554,6 +559,9 @@ class TheMovieDb extends ExternalAPI {
         .toISOString()
         .split('T')[0];
 
+      const settings = getSettings();
+      const excludeTags = settings.main.tagsToExclude;
+
       const data = await this.get<TmdbSearchTvResponse>('/discover/tv', {
         params: {
           sort_by: sortBy,
@@ -588,6 +596,7 @@ class TheMovieDb extends ExternalAPI {
           'vote_count.lte': voteCountLte,
           with_watch_providers: watchProviders,
           watch_region: watchRegion,
+          without_keywords: excludeTags,
         },
       });
 

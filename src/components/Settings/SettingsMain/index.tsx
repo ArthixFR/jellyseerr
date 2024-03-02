@@ -5,6 +5,7 @@ import SensitiveInput from '@app/components/Common/SensitiveInput';
 import Tooltip from '@app/components/Common/Tooltip';
 import LanguageSelector from '@app/components/LanguageSelector';
 import RegionSelector from '@app/components/RegionSelector';
+import { KeywordSelector } from '@app/components/Selector';
 import CopyButton from '@app/components/Settings/CopyButton';
 import SettingsBadge from '@app/components/Settings/SettingsBadge';
 import type { AvailableLocale } from '@app/context/LanguageContext';
@@ -35,6 +36,8 @@ const messages = defineMessages({
   regionTip: 'Filter content by regional availability',
   originallanguage: 'Discover Language',
   originallanguageTip: 'Filter content by original language',
+  tagsToExclude: 'Discover tags to exclude',
+  tagsToExcludeTip: 'Filter content globally by excluding tags in Discover',
   toastApiKeySuccess: 'New API key generated successfully!',
   toastApiKeyFailure: 'Something went wrong while generating a new API key.',
   toastSettingsSuccess: 'Settings saved successfully!',
@@ -131,6 +134,7 @@ const SettingsMain = () => {
             locale: data?.locale ?? 'en',
             region: data?.region,
             originalLanguage: data?.originalLanguage,
+            tagsToExclude: data?.tagsToExclude,
             partialRequestsEnabled: data?.partialRequestsEnabled,
             trustProxy: data?.trustProxy,
             cacheImages: data?.cacheImages,
@@ -147,6 +151,7 @@ const SettingsMain = () => {
                 locale: values.locale,
                 region: values.region,
                 originalLanguage: values.originalLanguage,
+                tagsToExclude: values.tagsToExclude,
                 partialRequestsEnabled: values.partialRequestsEnabled,
                 trustProxy: values.trustProxy,
                 cacheImages: values.cacheImages,
@@ -382,6 +387,29 @@ const SettingsMain = () => {
                       <LanguageSelector
                         setFieldValue={setFieldValue}
                         value={values.originalLanguage}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="form-row">
+                  <label htmlFor="tagsToExclude" className="text-label">
+                    <span>{intl.formatMessage(messages.tagsToExclude)}</span>
+                    <span className="label-tip">
+                      {intl.formatMessage(messages.tagsToExcludeTip)}
+                    </span>
+                    <SettingsBadge badgeType="experimental" />
+                  </label>
+                  <div className="form-input-area">
+                    <div className="form-input-field">
+                      <KeywordSelector
+                        defaultValue={values.tagsToExclude}
+                        isMulti={true}
+                        onChange={(value) => {
+                          setFieldValue(
+                            'tagsToExclude',
+                            value?.map((v) => v.value).join(',')
+                          );
+                        }}
                       />
                     </div>
                   </div>

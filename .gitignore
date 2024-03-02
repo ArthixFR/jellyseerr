@@ -70,3 +70,5 @@ tsconfig.tsbuildinfo
 
 # Config Cache Directory
 config/cache
+
+commands.txt

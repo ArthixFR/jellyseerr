@@ -1,5 +1,7 @@
 FROM node:18.18-alpine AS BUILD_IMAGE
 
+ENV NODE_OPTIONS="--dns-result-order=ipv4first"
+
 WORKDIR /app
 
 ARG TARGETPLATFORM
