@@ -83,7 +83,7 @@ class GithubAPI extends ExternalAPI {
   } = {}): Promise<GitHubRelease[]> {
     try {
       const data = await this.get<GitHubRelease[]>(
-        '/repos/fallenbagel/jellyseerr/releases',
+        '/repos/ArthixFR/jellyseerr/releases',
         {
           params: {
             per_page: take,
@@ -110,7 +110,7 @@ class GithubAPI extends ExternalAPI {
   } = {}): Promise<GithubCommit[]> {
     try {
       const data = await this.get<GithubCommit[]>(
-        '/repos/fallenbagel/jellyseerr/commits',
+        '/repos/ArthixFR/jellyseerr/commits',
         {
           params: {
             per_page: take,
