@@ -101,7 +101,6 @@ interface DiscoverTvOptions {
 class TheMovieDb extends ExternalAPI {
   private region?: string;
   private originalLanguage?: string;
-  private locale: string;
   constructor({
     region,
     originalLanguage,
@@ -121,14 +120,13 @@ class TheMovieDb extends ExternalAPI {
     );
     this.region = region;
     this.originalLanguage = originalLanguage;
-    this.locale = getSettings().main?.locale || 'en';
   }
 
   public searchMulti = async ({
     query,
     page = 1,
     includeAdult = false,
-    language = this.locale,
+    language = 'en',
   }: SearchOptions): Promise<TmdbSearchMultiResponse> => {
     try {
       const data = await this.get<TmdbSearchMultiResponse>('/search/multi', {
@@ -150,7 +148,7 @@ class TheMovieDb extends ExternalAPI {
     query,
     page = 1,
     includeAdult = false,
-    language = this.locale,
+    language = 'en',
     year,
   }: SingleSearchOptions): Promise<TmdbSearchMovieResponse> => {
     try {
@@ -179,7 +177,7 @@ class TheMovieDb extends ExternalAPI {
     query,
     page = 1,
     includeAdult = false,
-    language = this.locale,
+    language = 'en',
     year,
   }: SingleSearchOptions): Promise<TmdbSearchTvResponse> => {
     try {
@@ -206,7 +204,7 @@ class TheMovieDb extends ExternalAPI {
 
   public getPerson = async ({
     personId,
-    language = this.locale,
+    language = 'en',
   }: {
     personId: number;
     language?: string;
@@ -224,7 +222,7 @@ class TheMovieDb extends ExternalAPI {
 
   public getPersonCombinedCredits = async ({
     personId,
-    language = this.locale,
+    language = 'en',
   }: {
     personId: number;
     language?: string;
@@ -247,7 +245,7 @@ class TheMovieDb extends ExternalAPI {
 
   public getMovie = async ({
     movieId,
-    language = this.locale,
+    language = 'en',
   }: {
     movieId: number;
     language?: string;
@@ -273,7 +271,7 @@ class TheMovieDb extends ExternalAPI {
 
   public getTvShow = async ({
     tvId,
-    language = this.locale,
+    language = 'en',
   }: {
     tvId: number;
     language?: string;
@@ -326,7 +324,7 @@ class TheMovieDb extends ExternalAPI {
   public async getMovieRecommendations({
     movieId,
     page = 1,
-    language = this.locale,
+    language = 'en',
   }: {
     movieId: number;
     page?: number;
@@ -352,7 +350,7 @@ class TheMovieDb extends ExternalAPI {
   public async getMovieSimilar({
     movieId,
     page = 1,
-    language = this.locale,
+    language = 'en',
   }: {
     movieId: number;
     page?: number;
@@ -378,7 +376,7 @@ class TheMovieDb extends ExternalAPI {
   public async getMoviesByKeyword({
     keywordId,
     page = 1,
-    language = this.locale,
+    language = 'en',
   }: {
     keywordId: number;
     page?: number;
@@ -404,7 +402,7 @@ class TheMovieDb extends ExternalAPI {
   public async getTvRecommendations({
     tvId,
     page = 1,
-    language = this.locale,
+    language = 'en',
   }: {
     tvId: number;
     page?: number;
@@ -432,7 +430,7 @@ class TheMovieDb extends ExternalAPI {
   public async getTvSimilar({
     tvId,
     page = 1,
-    language = this.locale,
+    language = 'en',
   }: {
     tvId: number;
     page?: number;
@@ -456,7 +454,7 @@ class TheMovieDb extends ExternalAPI {
     sortBy = 'popularity.desc',
     page = 1,
     includeAdult = false,
-    language = this.locale,
+    language = 'en',
     primaryReleaseDateGte,
     primaryReleaseDateLte,
     originalLanguage,
@@ -533,7 +531,7 @@ class TheMovieDb extends ExternalAPI {
   public getDiscoverTv = async ({
     sortBy = 'popularity.desc',
     page = 1,
-    language = this.locale,
+    language = 'en',
     firstAirDateGte,
     firstAirDateLte,
     includeEmptyReleaseDate = false,
@@ -610,7 +608,7 @@ class TheMovieDb extends ExternalAPI {
 
   public getUpcomingMovies = async ({
     page = 1,
-    language = this.locale,
+    language = 'en',
   }: {
     page: number;
     language: string;
@@ -637,7 +635,7 @@ class TheMovieDb extends ExternalAPI {
   public getAllTrending = async ({
     page = 1,
     timeWindow = 'day',
-    language = this.locale,
+    language = 'en',
   }: {
     page?: number;
     timeWindow?: 'day' | 'week';
@@ -710,7 +708,7 @@ class TheMovieDb extends ExternalAPI {
   public async getByExternalId({
     externalId,
     type,
-    language = this.locale,
+    language = 'en',
   }:
     | {
         externalId: string;
@@ -741,7 +739,7 @@ class TheMovieDb extends ExternalAPI {
 
   public async getMediaByImdbId({
     imdbId,
-    language = this.locale,
+    language = 'en',
   }: {
     imdbId: string;
     language?: string;
@@ -780,7 +778,7 @@ class TheMovieDb extends ExternalAPI {
 
   public async getShowByTvdbId({
     tvdbId,
-    language = this.locale,
+    language = 'en',
   }: {
     tvdbId: number;
     language?: string;
@@ -810,7 +808,7 @@ class TheMovieDb extends ExternalAPI {
 
   public async getCollection({
     collectionId,
-    language = this.locale,
+    language = 'en',
   }: {
     collectionId: number;
     language?: string;
@@ -886,7 +884,7 @@ class TheMovieDb extends ExternalAPI {
   }
 
   public async getMovieGenres({
-    language = this.locale,
+    language = 'en',
   }: {
     language?: string;
   } = {}): Promise<TmdbGenre[]> {
@@ -937,7 +935,7 @@ class TheMovieDb extends ExternalAPI {
   }
 
   public async getTvGenres({
-    language = this.locale,
+    language = 'en',
   }: {
     language?: string;
   } = {}): Promise<TmdbGenre[]> {
