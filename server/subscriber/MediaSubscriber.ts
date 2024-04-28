@@ -9,6 +9,7 @@ import Media from '@server/entity/Media';
 import { MediaRequest } from '@server/entity/MediaRequest';
 import Season from '@server/entity/Season';
 import notificationManager, { Notification } from '@server/lib/notifications';
+import { getSettings } from '@server/lib/settings';
 import logger from '@server/logger';
 import { truncate } from 'lodash';
 import type { EntitySubscriberInterface, UpdateEvent } from 'typeorm';
@@ -41,7 +42,10 @@ export class MediaSubscriber implements EntitySubscriberInterface<Media> {
           const tmdb = new TheMovieDb();
 
           try {
-            const movie = await tmdb.getMovie({ movieId: entity.tmdbId });
+            const movie = await tmdb.getMovie({
+              movieId: entity.tmdbId,
+              language: getSettings().main.locale || 'en',
+            });
 
             relatedRequests.forEach((request) => {
               notificationManager.sendNotification(
@@ -138,7 +142,10 @@ export class MediaSubscriber implements EntitySubscriberInterface<Media> {
           );
 
           try {
-            const tv = await tmdb.getTvShow({ tvId: entity.tmdbId });
+            const tv = await tmdb.getTvShow({
+              tvId: entity.tmdbId,
+              language: getSettings().main.locale || 'en',
+            });
             notificationManager.sendNotification(Notification.MEDIA_AVAILABLE, {
               event: `Demande de série ${
                 is4k ? '4K ' : ''
