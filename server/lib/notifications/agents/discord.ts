@@ -116,7 +116,7 @@ class DiscordAgent
 
     if (payload.request) {
       fields.push({
-        name: 'Requested By',
+        name: 'Demandé par',
         value: payload.request.requestedBy.displayName,
         inline: true,
       });
@@ -125,56 +125,56 @@ class DiscordAgent
       switch (type) {
         case Notification.MEDIA_PENDING:
           color = EmbedColors.ORANGE;
-          status = 'Pending Approval';
+          status = "En attente d'approbation";
           break;
         case Notification.MEDIA_APPROVED:
         case Notification.MEDIA_AUTO_APPROVED:
           color = EmbedColors.PURPLE;
-          status = 'Processing';
+          status = 'Traitement';
           break;
         case Notification.MEDIA_AVAILABLE:
           color = EmbedColors.GREEN;
-          status = 'Available';
+          status = 'Disponible';
           break;
         case Notification.MEDIA_DECLINED:
           color = EmbedColors.RED;
-          status = 'Declined';
+          status = 'Refusé';
           break;
         case Notification.MEDIA_FAILED:
           color = EmbedColors.RED;
-          status = 'Failed';
+          status = 'Erreur';
           break;
       }
 
       if (status) {
         fields.push({
-          name: 'Request Status',
+          name: 'État de la demande',
           value: status,
           inline: true,
         });
       }
     } else if (payload.comment) {
       fields.push({
-        name: `Comment from ${payload.comment.user.displayName}`,
+        name: `Commentaire de ${payload.comment.user.displayName}`,
         value: payload.comment.message,
         inline: false,
       });
     } else if (payload.issue) {
       fields.push(
         {
-          name: 'Reported By',
+          name: 'Signalé par',
           value: payload.issue.createdBy.displayName,
           inline: true,
         },
         {
-          name: 'Issue Type',
+          name: 'Type de problème',
           value: IssueTypeName[payload.issue.issueType],
           inline: true,
         },
         {
-          name: 'Issue Status',
+          name: 'État du problème',
           value:
-            payload.issue.status === IssueStatus.OPEN ? 'Open' : 'Resolved',
+            payload.issue.status === IssueStatus.OPEN ? 'Ouvert' : 'Résolu',
           inline: true,
         }
       );

@@ -47,7 +47,9 @@ export class MediaSubscriber implements EntitySubscriberInterface<Media> {
               notificationManager.sendNotification(
                 Notification.MEDIA_AVAILABLE,
                 {
-                  event: `${is4k ? '4K ' : ''}Movie Request Now Available`,
+                  event: `Demande de film ${
+                    is4k ? '4K ' : ''
+                  } maintenant disponible`,
                   notifyAdmin: false,
                   notifySystem: true,
                   notifyUser: request.requestedBy,
@@ -138,7 +140,9 @@ export class MediaSubscriber implements EntitySubscriberInterface<Media> {
           try {
             const tv = await tmdb.getTvShow({ tvId: entity.tmdbId });
             notificationManager.sendNotification(Notification.MEDIA_AVAILABLE, {
-              event: `${is4k ? '4K ' : ''}Series Request Now Available`,
+              event: `Demande de série ${
+                is4k ? '4K ' : ''
+              } maintenant disponible`,
               subject: `${tv.name}${
                 tv.first_air_date ? ` (${tv.first_air_date.slice(0, 4)})` : ''
               }`,
@@ -154,7 +158,7 @@ export class MediaSubscriber implements EntitySubscriberInterface<Media> {
               media: entity,
               extra: [
                 {
-                  name: 'Requested Seasons',
+                  name: 'Saison(s) demandée(s)',
                   value: request.seasons
                     .map((season) => season.seasonNumber)
                     .join(', '),
