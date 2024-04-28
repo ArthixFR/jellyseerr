@@ -53,7 +53,7 @@ export class MediaSubscriber implements EntitySubscriberInterface<Media> {
                 {
                   event: `Demande de film ${
                     is4k ? '4K ' : ''
-                  } maintenant disponible`,
+                  }maintenant disponible`,
                   notifyAdmin: false,
                   notifySystem: true,
                   notifyUser: request.requestedBy,
@@ -149,7 +149,7 @@ export class MediaSubscriber implements EntitySubscriberInterface<Media> {
             notificationManager.sendNotification(Notification.MEDIA_AVAILABLE, {
               event: `Demande de série ${
                 is4k ? '4K ' : ''
-              } maintenant disponible`,
+              }maintenant disponible`,
               subject: `${tv.name}${
                 tv.first_air_date ? ` (${tv.first_air_date.slice(0, 4)})` : ''
               }`,
