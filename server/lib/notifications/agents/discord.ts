@@ -2,12 +2,12 @@ import { IssueStatus, IssueTypeName } from '@server/constants/issue';
 import { getRepository } from '@server/datasource';
 import { User } from '@server/entity/User';
 import type { NotificationAgentDiscord } from '@server/lib/settings';
-import { NotificationAgentKey, getSettings } from '@server/lib/settings';
+import { getSettings, NotificationAgentKey } from '@server/lib/settings';
 import logger from '@server/logger';
 import axios from 'axios';
 import {
-  Notification,
   hasNotificationType,
+  Notification,
   shouldSendAdminNotification,
 } from '..';
 import type { NotificationAgent, NotificationPayload } from './agent';
@@ -120,7 +120,7 @@ class DiscordAgent
 
     if (payload.request) {
       fields.push({
-        name: 'Requested By',
+        name: 'Demandé par',
         value: payload.request.requestedBy.displayName,
         inline: true,
       });
@@ -129,56 +129,56 @@ class DiscordAgent
       switch (type) {
         case Notification.MEDIA_PENDING:
           color = EmbedColors.ORANGE;
-          status = `[Pending Approval](${appUrl}/requests)`;
+          status = `[En attente d'approbation](${appUrl}/requests)`;
           break;
         case Notification.MEDIA_APPROVED:
         case Notification.MEDIA_AUTO_APPROVED:
           color = EmbedColors.PURPLE;
-          status = 'Processing';
+          status = 'Traitement';
           break;
         case Notification.MEDIA_AVAILABLE:
           color = EmbedColors.GREEN;
-          status = 'Available';
+          status = 'Disponible';
           break;
         case Notification.MEDIA_DECLINED:
           color = EmbedColors.RED;
-          status = 'Declined';
+          status = 'Refusé';
           break;
         case Notification.MEDIA_FAILED:
           color = EmbedColors.RED;
-          status = 'Failed';
+          status = 'Erreur';
           break;
       }
 
       if (status) {
         fields.push({
-          name: 'Request Status',
+          name: 'État de la demande',
           value: status,
           inline: true,
         });
       }
     } else if (payload.comment) {
       fields.push({
-        name: `Comment from ${payload.comment.user.displayName}`,
+        name: `Commentaire de ${payload.comment.user.displayName}`,
         value: payload.comment.message,
         inline: false,
       });
     } else if (payload.issue) {
       fields.push(
         {
-          name: 'Reported By',
+          name: 'Signalé par',
           value: payload.issue.createdBy.displayName,
           inline: true,
         },
         {
-          name: 'Issue Type',
+          name: 'Type de problème',
           value: IssueTypeName[payload.issue.issueType],
           inline: true,
         },
         {
-          name: 'Issue Status',
+          name: 'État du problème',
           value:
-            payload.issue.status === IssueStatus.OPEN ? 'Open' : 'Resolved',
+            payload.issue.status === IssueStatus.OPEN ? 'Ouvert' : 'Résolu',
           inline: true,
         }
       );
@@ -209,8 +209,8 @@ class DiscordAgent
       ? payload.issue
         ? `${applicationUrl}/issues/${payload.issue.id}`
         : payload.media
-          ? `${applicationUrl}/${payload.media.mediaType}/${payload.media.tmdbId}`
-          : undefined
+        ? `${applicationUrl}/${payload.media.mediaType}/${payload.media.tmdbId}`
+        : undefined
       : undefined;
 
     return {

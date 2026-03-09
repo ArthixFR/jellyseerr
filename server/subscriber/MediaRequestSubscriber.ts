@@ -41,7 +41,9 @@ const sanitizeDisplayName = (displayName: string): string => {
 };
 
 @EventSubscriber()
-export class MediaRequestSubscriber implements EntitySubscriberInterface<MediaRequest> {
+export class MediaRequestSubscriber
+  implements EntitySubscriberInterface<MediaRequest>
+{
   private async notifyAvailableMovie(
     entity: MediaRequest,
     event?: UpdateEvent<MediaRequest>
@@ -76,7 +78,9 @@ export class MediaRequestSubscriber implements EntitySubscriberInterface<MediaRe
       });
 
       notificationManager.sendNotification(Notification.MEDIA_AVAILABLE, {
-        event: `${entity.is4k ? '4K ' : ''}Movie Request Now Available`,
+        event: `Demande de film ${
+          entity.is4k ? '4K ' : ''
+        } maintenant disponible`,
         notifyAdmin: false,
         notifySystem: true,
         notifyUser: entity.requestedBy,
@@ -147,7 +151,9 @@ export class MediaRequestSubscriber implements EntitySubscriberInterface<MediaRe
       const tv = await tmdb.getTvShow({ tvId: entity.media.tmdbId });
 
       notificationManager.sendNotification(Notification.MEDIA_AVAILABLE, {
-        event: `${entity.is4k ? '4K ' : ''}Series Request Now Available`,
+        event: `Demande de série ${
+          entity.is4k ? '4K ' : ''
+        } maintenant disponible`,
         subject: `${tv.name}${
           tv.first_air_date ? ` (${tv.first_air_date.slice(0, 4)})` : ''
         }`,
@@ -163,7 +169,7 @@ export class MediaRequestSubscriber implements EntitySubscriberInterface<MediaRe
         media: latestMedia,
         extra: [
           {
-            name: 'Requested Seasons',
+            name: 'Saison(s) demandée(s)',
             value: entity.seasons
               .map((season) => season.seasonNumber)
               .join(', '),
@@ -603,8 +609,8 @@ export class MediaRequestSubscriber implements EntitySubscriberInterface<MediaRe
               ? [...sonarrSettings.animeTags]
               : []
             : sonarrSettings.tags
-              ? [...sonarrSettings.tags]
-              : [];
+            ? [...sonarrSettings.tags]
+            : [];
 
         if (
           entity.rootFolder &&
