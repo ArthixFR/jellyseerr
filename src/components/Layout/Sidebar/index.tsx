@@ -2,6 +2,7 @@ import Badge from '@app/components/Common/Badge';
 import UserWarnings from '@app/components/Layout/UserWarnings';
 import VersionStatus from '@app/components/Layout/VersionStatus';
 import useClickOutside from '@app/hooks/useClickOutside';
+import useSettings from '@app/hooks/useSettings';
 import { Permission, useUser } from '@app/hooks/useUser';
 import defineMessages from '@app/utils/defineMessages';
 import { Transition } from '@headlessui/react';
@@ -23,6 +24,7 @@ import { Fragment, useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 
 export const menuMessages = defineMessages('components.Layout.Sidebar', {
+  gotojellyfin: 'Go to Jellyfin',
   dashboard: 'Discover',
   browsemovies: 'Movies',
   browsetv: 'Series',
@@ -127,6 +129,7 @@ const Sidebar = ({
   revalidateIssueCount,
   revalidateRequestsCount,
 }: SidebarProps) => {
+  const { currentSettings } = useSettings();
   const navRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const intl = useIntl();
@@ -198,6 +201,51 @@ const Sidebar = ({
                       </span>
                     </div>
                     <nav className="mt-10 flex-1 space-y-4 px-4">
+                      {currentSettings?.jellyfinExternalHost
+                        ? (() => {
+                            const raw = currentSettings.jellyfinExternalHost;
+                            const jellyUrl = raw.startsWith('http')
+                              ? raw
+                              : `https://${raw}`;
+                            return (
+                              <a
+                                key="desktop-gotojellyfin"
+                                href={jellyUrl}
+                                target={
+                                  currentSettings.jellyfinOpenInNewTab
+                                    ? '_blank'
+                                    : '_self'
+                                }
+                                rel="noopener noreferrer"
+                                data-testid="desktop-gotojellyfin"
+                                className="group flex items-center rounded-md px-2 py-2 text-lg font-medium leading-6 text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none"
+                              >
+                                <svg
+                                  id="icon-transparent-white"
+                                  viewBox="0 0 512 512"
+                                  className="mr-3 h-6 w-6"
+                                >
+                                  <title>icon-transparent-white</title>
+                                  <g id="icon-transparent">
+                                    <path
+                                      id="inner-shape"
+                                      d="M256,201.62c-20.44,0-86.23,119.29-76.2,139.43s142.48,19.92,152.4,0S276.47,201.63,256,201.62Z"
+                                      fill="#ffffff"
+                                    />
+                                    <path
+                                      id="outer-shape"
+                                      d="M256,23.3C194.44,23.3-3.82,382.73,26.41,443.43s429.34,60,459.24,0S317.62,23.3,256,23.3ZM406.51,390.76c-19.59,39.33-281.08,39.77-300.89,0S215.71,115.48,256.06,115.48,426.1,351.42,406.51,390.76Z"
+                                      fill="#ffffff"
+                                    />
+                                  </g>
+                                </svg>
+                                {intl.formatMessage(menuMessages.gotojellyfin, {
+                                  title: currentSettings.jellyfinCustomName,
+                                })}
+                              </a>
+                            );
+                          })()
+                        : null}
                       {SidebarLinks.filter((link) =>
                         link.requiredPermission
                           ? hasPermission(link.requiredPermission, {
@@ -265,6 +313,51 @@ const Sidebar = ({
                 </span>
               </div>
               <nav className="mt-8 flex-1 space-y-4 px-4">
+                {currentSettings?.jellyfinExternalHost
+                  ? (() => {
+                      const raw = currentSettings.jellyfinExternalHost;
+                      const jellyUrl = raw.startsWith('http')
+                        ? raw
+                        : `https://${raw}`;
+                      return (
+                        <a
+                          key="desktop-gotojellyfin"
+                          href={jellyUrl}
+                          target={
+                            currentSettings.jellyfinOpenInNewTab
+                              ? '_blank'
+                              : '_self'
+                          }
+                          rel="noopener noreferrer"
+                          data-testid="desktop-gotojellyfin"
+                          className="group flex items-center rounded-md px-2 py-2 text-lg font-medium leading-6 text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none"
+                        >
+                          <svg
+                            id="icon-transparent-white"
+                            viewBox="0 0 512 512"
+                            className="mr-3 h-6 w-6"
+                          >
+                            <title>icon-transparent-white</title>
+                            <g id="icon-transparent">
+                              <path
+                                id="inner-shape"
+                                d="M256,201.62c-20.44,0-86.23,119.29-76.2,139.43s142.48,19.92,152.4,0S276.47,201.63,256,201.62Z"
+                                fill="#ffffff"
+                              />
+                              <path
+                                id="outer-shape"
+                                d="M256,23.3C194.44,23.3-3.82,382.73,26.41,443.43s429.34,60,459.24,0S317.62,23.3,256,23.3ZM406.51,390.76c-19.59,39.33-281.08,39.77-300.89,0S215.71,115.48,256.06,115.48,426.1,351.42,406.51,390.76Z"
+                                fill="#ffffff"
+                              />
+                            </g>
+                          </svg>
+                          {intl.formatMessage(menuMessages.gotojellyfin, {
+                            title: currentSettings.jellyfinCustomName,
+                          })}
+                        </a>
+                      );
+                    })()
+                  : null}
                 {SidebarLinks.filter((link) =>
                   link.requiredPermission
                     ? hasPermission(link.requiredPermission, {

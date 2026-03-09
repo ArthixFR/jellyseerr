@@ -26,6 +26,8 @@ const messages = defineMessages('components.Settings', {
   timeout: 'Timeout',
   save: 'Save Changes',
   saving: 'Saving…',
+  jellyfinCustomName: 'Jellyfin custom server name',
+  jellyfinOpenNewTab: 'Open Jellyfin in new tab',
   jellyfinlibraries: '{mediaServerName} Libraries',
   jellyfinlibrariesDescription:
     'The libraries {mediaServerName} scans for titles. Click the button below if no libraries are listed.',
@@ -444,6 +446,8 @@ const SettingsJellyfin: React.FC<SettingsJellyfinProps> = ({
           port: data?.port ?? 8096,
           useSsl: data?.useSsl,
           urlBase: data?.urlBase || '',
+          jellyfinServerName: data?.customName || 'Jellyfin',
+          jellyfinOpenNewTab: data?.openInNewTab || false,
           jellyfinExternalUrl: data?.externalHostname || '',
           jellyfinForgotPasswordUrl: data?.jellyfinForgotPasswordUrl || '',
           apiKey: data?.apiKey,
@@ -456,6 +460,8 @@ const SettingsJellyfin: React.FC<SettingsJellyfinProps> = ({
               port: Number(values.port),
               useSsl: values.useSsl,
               urlBase: values.urlBase,
+              openInNewTab: values.jellyfinOpenNewTab,
+              customName: values.jellyfinServerName,
               externalHostname: values.jellyfinExternalUrl,
               jellyfinForgotPasswordUrl: values.jellyfinForgotPasswordUrl,
               apiKey: values.apiKey,
@@ -513,6 +519,42 @@ const SettingsJellyfin: React.FC<SettingsJellyfinProps> = ({
             <form className="section" onSubmit={handleSubmit}>
               {!isSetupSettings && (
                 <>
+                  <div className="form-row">
+                    <label htmlFor="jellyfinServerName" className="text-label">
+                      {intl.formatMessage(messages.jellyfinCustomName)}
+                    </label>
+                    <div className="form-input-area">
+                      <div className="form-input-field">
+                        <Field
+                          type="text"
+                          inputMode="text"
+                          id="jellyfinServerName"
+                          name="jellyfinServerName"
+                        />
+                      </div>
+                      {errors.jellyfinServerName &&
+                        touched.jellyfinServerName && (
+                          <div className="error">
+                            {errors.jellyfinServerName}
+                          </div>
+                        )}
+                    </div>
+                  </div>
+                  <div className="form-row">
+                    <label
+                      htmlFor="jellyfinOpenNewTab"
+                      className="checkbox-label"
+                    >
+                      {intl.formatMessage(messages.jellyfinOpenNewTab)}
+                    </label>
+                    <div className="form-input-area">
+                      <Field
+                        type="checkbox"
+                        id="jellyfinOpenNewTab"
+                        name="jellyfinOpenNewTab"
+                      />
+                    </div>
+                  </div>
                   <div className="form-row">
                     <label htmlFor="hostname" className="text-label">
                       {intl.formatMessage(messages.hostname)}

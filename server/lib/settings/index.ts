@@ -39,6 +39,8 @@ export interface PlexSettings {
 
 export interface JellyfinSettings {
   name: string;
+  customName: string;
+  openInNewTab?: boolean;
   ip: string;
   port: number;
   useSsl?: boolean;
@@ -195,6 +197,8 @@ interface FullPublicSettings extends PublicSettings {
   jellyfinExternalHost?: string;
   jellyfinForgotPasswordUrl?: string;
   jellyfinServerName?: string;
+  jellyfinCustomName?: string;
+  jellyfinOpenInNewTab?: boolean;
   partialRequestsEnabled: boolean;
   enableSpecialEpisodes: boolean;
   cacheImages: boolean;
@@ -417,6 +421,8 @@ class Settings {
       },
       jellyfin: {
         name: '',
+        openInNewTab: false,
+        customName: '',
         ip: '',
         port: 8096,
         useSsl: false,
@@ -680,6 +686,8 @@ class Settings {
       hideBlocklisted: this.data.main.hideBlocklisted,
       localLogin: this.data.main.localLogin,
       mediaServerLogin: this.data.main.mediaServerLogin,
+      jellyfinOpenInNewTab: this.data.jellyfin.openInNewTab,
+      jellyfinCustomName: this.data.jellyfin.customName,
       jellyfinExternalHost: this.data.jellyfin.externalHostname,
       jellyfinForgotPasswordUrl: this.data.jellyfin.jellyfinForgotPasswordUrl,
       movie4kEnabled: this.data.radarr.some(

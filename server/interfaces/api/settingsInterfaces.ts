@@ -24,6 +24,8 @@ export interface SettingsAboutResponse {
 export interface PublicSettingsResponse {
   jellyfinHost?: string;
   jellyfinExternalHost?: string;
+  jellyfinCustomName?: string;
+  jellyfinOpenInNewTab?: boolean;
   jellyfinServerName?: string;
   jellyfinForgotPasswordUrl?: string;
   initialized: boolean;
