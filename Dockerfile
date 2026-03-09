@@ -7,6 +7,8 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
+ENV NODE_OPTIONS="--dns-result-order=ipv4first"
+
 COPY . ./app
 WORKDIR /app
 

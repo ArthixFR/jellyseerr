@@ -80,8 +80,8 @@ const SettingsAbout = () => {
                 <a
                   href={
                     data.version.startsWith('develop-')
-                      ? `https://github.com/seerr-team/seerr/compare/${status.commitTag}...develop`
-                      : 'https://github.com/seerr-team/seerr/releases'
+                      ? `https://github.com/ArthixFR/jellyseerr/compare/${status.commitTag}...develop`
+                      : 'https://github.com/ArthixFR/jellyseerr/releases'
                   }
                   target="_blank"
                   rel="noopener noreferrer"
@@ -97,8 +97,8 @@ const SettingsAbout = () => {
                 <a
                   href={
                     data.version.startsWith('develop-')
-                      ? 'https://github.com/seerr-team/seerr/commits/develop'
-                      : 'https://github.com/seerr-team/seerr/releases'
+                      ? 'https://github.com/ArthixFR/jellyseerr/commits/develop'
+                      : 'https://github.com/ArthixFR/jellyseerr/releases'
                   }
                   target="_blank"
                   rel="noopener noreferrer"
@@ -142,12 +142,12 @@ const SettingsAbout = () => {
           </List.Item>
           <List.Item title={intl.formatMessage(messages.githubdiscussions)}>
             <a
-              href="https://github.com/seerr-team/seerr/discussions"
+              href="https://github.com/ArthixFR/jellyseerr/discussions"
               target="_blank"
               rel="noreferrer"
               className="text-indigo-500 transition duration-300 hover:underline"
             >
-              https://github.com/seerr-team/seerr/discussions
+              https://github.com/ArthixFR/jellyseerr/discussions
             </a>
           </List.Item>
           <List.Item title="Discord">

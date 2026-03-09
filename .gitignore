@@ -74,3 +74,5 @@ config/cache
 
 # Docker compose
 compose.override.yaml
+
+commands.txt
