@@ -80,7 +80,7 @@ export class MediaRequestSubscriber
       notificationManager.sendNotification(Notification.MEDIA_AVAILABLE, {
         event: `Demande de film ${
           entity.is4k ? '4K ' : ''
-        } maintenant disponible`,
+        }maintenant disponible`,
         notifyAdmin: false,
         notifySystem: true,
         notifyUser: entity.requestedBy,
@@ -153,7 +153,7 @@ export class MediaRequestSubscriber
       notificationManager.sendNotification(Notification.MEDIA_AVAILABLE, {
         event: `Demande de série ${
           entity.is4k ? '4K ' : ''
-        } maintenant disponible`,
+        }maintenant disponible`,
         subject: `${tv.name}${
           tv.first_air_date ? ` (${tv.first_air_date.slice(0, 4)})` : ''
         }`,
