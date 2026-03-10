@@ -214,9 +214,8 @@ class DiscordAgent
       : undefined;
 
     return {
-      title: payload.event
-        ? `${payload.event}: ${payload.subject}`
-        : payload.subject,
+      author: payload.event ? {name: payload.event} : undefined,
+      title: payload.subject,
       url,
       description: payload.message,
       color,
